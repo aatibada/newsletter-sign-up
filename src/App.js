@@ -14,10 +14,9 @@ function App() {
 }
 
 function Subscribe() {
-
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-  }
+  };
 
   return (
     <main>
@@ -67,11 +66,7 @@ function Subscribe() {
 }
 
 function Success() {
-  return (
-    <div>
-      Success!
-    </div>
-  )
+  return <div>Success!</div>;
 }
 
 export default App;
