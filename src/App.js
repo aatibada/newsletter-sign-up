@@ -1,21 +1,55 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
-
+import {useState} from 'react';
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Outlet, useNavigate } from "react-router-dom";
 import desktopIllustration from "./images/illustration-sign-up-desktop.svg";
 import mobileIllustration from "./images/illustration-sign-up-mobile.svg";
-
-import "./App.css";
+import successIcon from './images/icon-success.svg';
 
 function App() {
+  const [email, setEmail] = useState("");
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Root />}>
+        <Route index element={<Subscribe setEmail={setEmail} email={email} />} />
+        <Route path="success" element={<Success email={email} setEmail={setEmail} />} />
+      </Route>
+    )
+  );
+
   return (
-    <div className="App">
-      <Subscribe />
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
-function Subscribe() {
+function Root() {
+  return (
+    <div className="background">
+      <Outlet />
+    </div>
+  )
+}
+
+function Subscribe({ setEmail, email }) {
+  const navigate = useNavigate();
+
+  function handleChange({target}) {
+    setEmail(target.value);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const form = document.querySelector("form");
+    const errorMessage = document.querySelector(".error-message");
+    const inputBox = document.querySelector("input");
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const isValid = regex.test(email);;
+
+    if (isValid) {
+      navigate("/success");
+    } else {
+      errorMessage.style.display = "block";
+      inputBox.classList.add('input-error');
+    }
   };
 
   return (
@@ -36,22 +70,24 @@ function Subscribe() {
             <span className="list-space"></span>And much more!
           </li>
         </ul>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email address</label>
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="label-container">
+            <label htmlFor="email">Email address</label>
+            <p className="error-message">Valid email required</p>
+          </div>
           <input
             type="email"
             id="email"
             name="email"
             placeholder="email@company.com"
-            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-            required
+            onChange={handleChange}
           />
           <button type="submit">Subscribe to monthly newsletter</button>
         </form>
       </section>
       <section className="img-container">
         <img
-          clasName="desktop-illustration"
+          className="desktop-illustration"
           src={desktopIllustration}
           alt="Computer illustration"
         />
@@ -65,8 +101,24 @@ function Subscribe() {
   );
 }
 
-function Success() {
-  return <div>Success!</div>;
+function Success({ email, setEmail }) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    setEmail('');
+    navigate('/');
+  }
+
+  return (
+    <section className="success-message">
+      <img src={successIcon} alt="Success icon" />
+      <div className="text-container">
+        <h1>Thanks for subscribing!</h1>
+        <p>A confirmation email has been sent to <strong>{email}</strong>. Please open it and click the button inside to confirm your subscription.</p>
+      </div>
+      <button onClick={handleClick}>Dismiss message</button>
+    </section>
+  );
 }
 
 export default App;

@@ -9,7 +9,7 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
-.App {
+.background {
   background: #36384D;
   min-height: 100vh;
   min-width: 100vw;
@@ -74,7 +74,7 @@ form label {
 
 form input {
   height: 3.5rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(25, 24, 43, 0.25);
   padding-left: 1rem;
@@ -88,8 +88,9 @@ form input:hover {
   border: 1px solid #FF6155;
 } */
 
-form button {
+button {
   height: 3.5rem;
+  width: 25rem;
   border-radius: 0.5rem;
   border: none;
   background: #242742;
@@ -97,11 +98,58 @@ form button {
   font-weight: 700;
 }
 
-form button:hover {
+button:hover {
   background: linear-gradient(#FF6A3A, #FF527B);
   cursor: pointer;
 }
 
 .mobile-illustration {
   display: none;
+}
+
+.success-message {
+  height: 32.5rem;
+  width: 33rem;
+  background: #FFF;
+  padding: 3.25rem 4.25rem;
+  border-radius: 2.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.success-message img {
+  height: 4.25rem;
+  width: 4.25rem;
+  margin-bottom: 1rem;
+}
+
+.success-message h1 {
+  margin: 1.5rem 0;
+}
+
+.success-message p {
+  margin: 0;
+}
+
+.success-message button {
+  margin-top: 2.5rem;
+}
+
+.label-container {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.error-message {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FF6155;
+  margin: 0;
+  display: none;
+}
+
+.input-error {
+  background: rgba(255, 97, 85, 0.15);
+  color: #FF6155;
+  border: solid 1px #FF6155;
 }
