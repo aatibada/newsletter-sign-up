@@ -30,6 +30,13 @@ function Root() {
 
 function Subscribe({ setEmail, email }) {
   const navigate = useNavigate();
+  const errorMessage = document.querySelector(".error-message");
+  const inputBox = document.querySelector("input");
+
+  function handleClick() {
+    errorMessage.style.display = "none";
+    inputBox.classList.remove("input-error");
+  }
 
   function handleChange({target}) {
     setEmail(target.value);
@@ -38,9 +45,6 @@ function Subscribe({ setEmail, email }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const form = document.querySelector("form");
-    const errorMessage = document.querySelector(".error-message");
-    const inputBox = document.querySelector("input");
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const isValid = regex.test(email);;
 
@@ -80,6 +84,7 @@ function Subscribe({ setEmail, email }) {
             id="email"
             name="email"
             placeholder="email@company.com"
+            onClick={handleClick}
             onChange={handleChange}
           />
           <button type="submit">Subscribe to monthly newsletter</button>
