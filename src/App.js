@@ -30,10 +30,13 @@ function Root() {
 
 function Subscribe({ setEmail, email }) {
   const navigate = useNavigate();
-  const errorMessage = document.querySelector(".error-message");
-  const inputBox = document.querySelector("input");
+
+
 
   function handleClick() {
+    const errorMessage = document.querySelector(".error-message");
+    const inputBox = document.querySelector("input");
+
     errorMessage.style.display = "none";
     inputBox.classList.remove("input-error");
   }
@@ -45,6 +48,8 @@ function Subscribe({ setEmail, email }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const errorMessage = document.querySelector(".error-message");
+    const inputBox = document.querySelector("input");
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const isValid = regex.test(email);;
 
